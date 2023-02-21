@@ -82,7 +82,7 @@ jobs:
         name: binaries-${{ github.sha }}
 
     - run: |
-        ls -al release*
+        ls -al release*/
 
     - name: Build (PRs)
       id: docker_build_pr
