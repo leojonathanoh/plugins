@@ -7,7 +7,7 @@ RUN /script/test_install_cni_plugins.sh
 
 FROM busybox as build
 ARG TAG
-# Get buildx automatic platform vars
+# Get buildx automatic platform vars: https://docs.docker.com/engine/reference/builder/#automatic-platform-args-in-the-global-scope
 ARG TARGETPLATFORM
 ARG TARGETOS
 ARG TARGETARCH
@@ -24,7 +24,7 @@ RUN echo BUILDPLATFORM=$BUILDPLATFORM
 RUN echo BUILDOS=$BUILDOS
 RUN echo BUILDARCH=$BUILDARCH
 RUN echo BUILDVARIANT=$BUILDVARIANT
-# Use buildx automatic platform vars: https://docs.docker.com/engine/reference/builder/#automatic-platform-args-in-the-global-scope
+# Use buildx automatic platform vars
 COPY release-$TAG/cni-plugins-$TARGETOS-$TARGETARCH-$TAG.tgz cni-plugins-$TARGETOS-$TARGETARCH-$TAG.tgz
 COPY release-$TAG/cni-plugins-$TARGETOS-$TARGETARCH-$TAG.tgz.sha512 cni-plugins-$TARGETOS-$TARGETARCH-$TAG.tgz.sha512
 RUN set -eux; \
