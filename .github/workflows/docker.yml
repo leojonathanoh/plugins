@@ -36,7 +36,7 @@ jobs:
         with:
           name: binaries
           path: |
-            release-*/*
+            **/*.tgz
 
   build-docker-image:
     needs: [build]
