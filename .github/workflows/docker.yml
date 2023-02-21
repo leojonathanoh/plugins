@@ -27,16 +27,13 @@ jobs:
       - name: Build on all supported architectures
         run: |
           set -e
-          for arch in ${LINUX_ARCHES}; do
-            echo "Building for arch $arch"
-            GOARCH=$arch ./build_linux.sh
-          done
+          ./scripts/release.sh
 
       - uses: actions/upload-artifact@v3
         with:
           name: binaries
           path: |
-            **/*.tgz
+            release*/*
 
   build-docker-image:
     needs: [build]
