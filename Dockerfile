@@ -24,11 +24,12 @@ ARG TARGETARCH
 # RUN echo BUILDARCH=$BUILDARCH
 # RUN echo BUILDVARIANT=$BUILDVARIANT
 # Use automatic buildx platform vars: https://docs.docker.com/engine/reference/builder/#automatic-platform-args-in-the-global-scope
-COPY release-$TAG/cni-plugins-$TARGETOS-$TARGETARCH-$TAG.tgz release.tgz
-COPY release-$TAG/cni-plugins-$TARGETOS-$TARGETARCH-$TAG.tgz.sha512 release.tgz.sha512
+COPY release-$TAG/cni-plugins-$TARGETOS-$TARGETARCH-$TAG.tgz cni-plugins-$TARGETOS-$TARGETARCH-$TAG.tgz
+COPY release-$TAG/cni-plugins-$TARGETOS-$TARGETARCH-$TAG.tgz.sha512 cni-plugins-$TARGETOS-$TARGETARCH-$TAG.tgz.sha512
 RUN set -eux; \
+    sha512sum -c cni-plugins-$TARGETOS-$TARGETARCH-$TAG.tgz.sha512; \
     mkdir -p /opt/cni/bin; \
-    tar -xvf release.tgz -C /opt/cni/bin;
+    tar -xvf cni-plugins-$TARGETOS-$TARGETARCH-$TAG.tgz -C /opt/cni/bin;
 
 # This is the final, minimal container
 FROM busybox as final
