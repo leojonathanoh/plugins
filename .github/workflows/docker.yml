@@ -46,7 +46,7 @@ jobs:
       with:
         name: binaries
         path: |
-          release-*/*
+          release*/*
 
     - name: Checkout
       uses: actions/checkout@v3
