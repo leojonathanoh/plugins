@@ -98,7 +98,6 @@ jobs:
         push: true
         tags: |
           ${{ github.repository }}:${{ env.TAG }}
-          ${{ github.repository }}:${{ env.TAG }}-${{ env.SHA_SHORT }}
         cache-from: type=local,src=/tmp/.buildx-cache
         cache-to: type=local,dest=/tmp/.buildx-cache-new,mode=max
 
