@@ -123,6 +123,30 @@ echo "Test passed."
 
 #############################################################
 
+prepare "Force install overwrites plugin installed by someone else"
+
+echo "cni1.other" > test/dst/cni1
+echo "cni1.0" > test/src/cni1
+FORCE=1 ./install_cni_plugins.sh test/src test/dst
+
+assert_file_content cni1 "cni1.0"
+assert_file_content cni1.by_cni_installer_image "7ec08d6ee0e5237cb34be4a31d9146c1"
+
+prepare "Force install overwrites plugin installed by me, altered by someone else"
+
+echo "cni1.0" > test/src/cni1
+./install_cni_plugins.sh test/src test/dst
+echo "cni1.other" > test/dst/cni1
+
+FORCE=1 ./install_cni_plugins.sh test/src test/dst
+
+assert_file_content cni1 "cni1.0"
+assert_file_content cni1.by_cni_installer_image "7ec08d6ee0e5237cb34be4a31d9146c1"
+
+echo
+echo "Test passed."
+
+#############################################################
 
 echo
 echo "All tests passed."
